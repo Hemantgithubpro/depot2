@@ -1,9 +1,19 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Product.destroy_all
+# instead of delete_all, it allows for multiple time running rails db:seed commands
+
+product = Product.create!(
+  title: "Rails Scales!",
+  description: %(
+    <p>
+      <em>Practical Techniques for Performance and Growth</em>
+      Rails doesn't scale. So say the naysayers. They're wrong.
+      Ruby on Rails runs some of the biggest sites in the world.
+    </p>
+  ),
+  price: 30.95
+)
+
+product.image.attach(
+  io: File.open(Rails.root.join("db/images/cprpo.jpg")),
+  filename: "cprpo.jpg"
+)
