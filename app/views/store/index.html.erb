@@ -1,19 +1,27 @@
 <div>
   <h1 class="font-bold text-4xl">Store#index</h1>
-  <% @products.each do |product| %>
-    <li>
-      <%= image_tag(product.image) %>
+  <main>
+    <ul>
+      <% cache @products do %>
+        <% @products.each do |product| %>
+          <% cache product do %>
+            <li>
+              <%= image_tag(product.image) %>
 
-      <h2><%= product.title %></h2>
+              <h2><%= product.title %></h2>
 
-      <p>
-        <%= sanitize(product.description) %>
-      </p>
+              <p>
+                <%= sanitize(product.description) %>
+              </p>
 
-      <%#= product.price %>
-      <%#= sprintf("$%0.03f", product.price) %>
-      <%= number_to_currency(product.price) %>
+              <%#= product.price %>
+              <%#= sprintf("$%0.03f", product.price) %>
+              <%= number_to_currency(product.price) %>
 
-    </li>
-  <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </main>
 </div>
